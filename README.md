@@ -1,46 +1,41 @@
+# Mastermind Helper Library for ECE4180 Labs 3 & 4
 
-This directory is intended for project specific (private) libraries.
-PlatformIO will compile them to static libraries and link into the executable file.
+See the structure of the following Arduino library `Mastermind` which includes `Codemaker` and `Codebreaker`:
 
-The source code of each library should be placed in a separate directory
-("lib/your_library_name/[Code]").
+|--src  
+|  |  
+|  |--Codemaker  
+|  |  |--Codemaker.cpp  
+|  |  |--Codemaker.h  
+|  |  
+|  |--Codebreaker  
+|  |  |- Codebreaker.c  
+|  |  |- Codebreaker.h  
+|  |  
+|  |--include  
+|  |  |- config.h  
+|  |  
+|  |- Mastermind.cpp  
+|  |- Mastermind.h  
+|  
+|--examples  
+|  |--MastermindGameplay  
+|  |  |- MastermindGameplay.ino  
+|  
+|- keywords.txt  
+|- library.properties  
+|- README.md ---> This file  
 
-For example, see the structure of the following example libraries `Foo` and `Bar`:
-
-|--lib
-|  |
-|  |--Bar
-|  |  |--docs
-|  |  |--examples
-|  |  |--src
-|  |     |- Bar.c
-|  |     |- Bar.h
-|  |  |- library.json (optional. for custom build options, etc) https://docs.platformio.org/page/librarymanager/config.html
-|  |
-|  |--Foo
-|  |  |- Foo.c
-|  |  |- Foo.h
-|  |
-|  |- README --> THIS FILE
-|
-|- platformio.ini
-|--src
-   |- main.c
-
-Example contents of `src/main.c` using Foo and Bar:
+How to use the helper functions in `Mastermind.h` for Codemaker and Codebreaker:
 ```
-#include <Foo.h>
-#include <Bar.h>
+// If you want to use the helper functions for the CodeMaker
+#define CODEMAKER
 
-int main (void)
-{
-  ...
-}
+// If you want to use the helper functions for the CodeBreaker
+#define CODEBREAKER
+
+#include <Mastermind.h>
 
 ```
 
-The PlatformIO Library Dependency Finder will find automatically dependent
-libraries by scanning project source files.
-
-More information about PlatformIO Library Dependency Finder
-- https://docs.platformio.org/page/librarymanager/ldf.html
+Easily include this library in your Arduino by exporting as a .zip file and importing using the include .zip file feature
