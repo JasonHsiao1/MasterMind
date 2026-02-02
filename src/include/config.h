@@ -9,6 +9,6 @@ enum Colors {
     ORANGE = 6
 };
 
-char colorChar[6] = {'R', 'B', 'G', 'Y', 'P', 'O'};
+inline constexpr char colorChar[6] = {'R', 'B', 'G', 'Y', 'P', 'O'};
 
 
