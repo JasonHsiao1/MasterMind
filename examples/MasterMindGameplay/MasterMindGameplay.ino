@@ -1,6 +1,9 @@
 #include <Arduino.h>
 
+#define CODEMAKER
 #include "CodeMaker.h"
+
+#define CODEBREAKER
 #include "CodeBreaker.h"
 
 
