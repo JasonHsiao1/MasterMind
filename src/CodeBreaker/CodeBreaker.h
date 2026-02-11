@@ -19,27 +19,12 @@
 #include <Wire.h>
 #include "CodeBreaker/Board.h"
 
-// Defining Button Pins here
-static constexpr uint8_t BUTTON_PIN1 = 4;
-static constexpr uint8_t BUTTON_PIN2 = 5;
-static constexpr uint8_t BUTTON_PIN3 = 6;
-static constexpr uint8_t BUTTON_PIN4 = 7;
-static constexpr uint8_t ENTER = 1;
-
-
 #include <Adafruit_NeoPixel.h>
 
 #define LED_PIN     8     // Data pin connected to onboard RGB LED
 #define NUM_LEDS    1     // Only one LED on board
 
 Adafruit_NeoPixel pixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
-
-
-struct __attribute__((packed)) PlayerBuffer {
-    volatile uint8_t playerGuess[4];
-    uint8_t results[2]; // First is number of black pegs, second is number of white pegs
-    bool turn;  // indicator of whose turn it is (player can make Move if True)
-};
 
 uint32_t pixelColors[6] = {
   pixel.Color(255, 0, 0),    // Red

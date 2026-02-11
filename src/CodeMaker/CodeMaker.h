@@ -12,15 +12,15 @@
  * @see config.h for definitions like colors.
  */
 
-// #ifdef HAS_SENSORS
+// #ifdef CODEMAKER
 
 #include <Arduino.h>
 #include "include/config.h"
 #include <Wire.h>
 
-
-#define CODE_LENGTH 4
-
+#ifndef CODE_LENGTH
+    #define CODE_LENGTH 4
+#endif
 
 /**
  * @brief Implements BlackJack CodeMaker functionality
