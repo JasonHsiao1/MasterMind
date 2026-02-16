@@ -29,7 +29,7 @@ CodeBreaker player;
 
 static NimBLEServer* pServer;
 
-NimBLECharacteristic* pBoardCharacteristic = nullptr;
+NimBLECharacteristic* pCharacteristic = nullptr;
 
 /**  None of these are required as they will be handled by the library with defaults. **
  **                       Remove as you see fit for your needs                        */
@@ -115,7 +115,11 @@ void setup(void) {
 
   //============================================//
   // TODO: Configure your Characteristics here  //
+  // Example below                              //
+  pCharacteristic = pBoardService->createCharacteristic("0001", NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY);
+  // Will require extra steps                   //
   //============================================//
+  
 
   /** Start the services when finished creating all Characteristics and Descriptors */
   pBoardService->start();
@@ -134,7 +138,6 @@ void setup(void) {
 
   Serial.printf("Advertising Started\n");
 
-
   //======================================//
   // TODO: Set-up your code-breaker here  //
   //======================================//
@@ -145,5 +148,14 @@ void loop() {
   
   //======================================//
   // TODO: Game Logic Here                //
+  // Example of how to use BLE below      //
+  // Comment this out if needed           //
+  uint8_t message[] = "Good Luck everybody!! - Jason";
+  while (1) {
+    pCharacteristic->setValue(message, sizeof(message) - 1);
+    pCharacteristic->notify();
+    delay(1000);
+  }
   //======================================//
+
 }

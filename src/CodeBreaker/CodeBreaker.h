@@ -12,12 +12,10 @@
  * @see pinout.h for the hardware definitions like GPIO mapping.
  */
 
-// #ifdef HAS_SENSORS
+#ifdef CODEBREAKER
 
 #include <Arduino.h>
 #include "include/config.h"
-#include <Wire.h>
-#include "CodeBreaker/Board.h"
 
 #include <Adafruit_NeoPixel.h>
 
@@ -51,34 +49,25 @@ class CodeBreaker{
 
         /**
          * @brief Set-up the new CodeBreaker object.
-         * @note Initializes objects.
+         * @note Sets up the button as pull-down pins
          */
         void setup(){
             pixel.begin();
-            
-            pixel.setBrightness(20); // Make it less bright!
+            pixel.setBrightness(20);
 
             pinMode(BUTTON_PIN1, INPUT_PULLDOWN);
-            // attachInterruptArg(BUTTON_PIN1, onButtonPress, (void*) &(move.playerGuess[0]), RISING);
-
             pinMode(BUTTON_PIN2, INPUT_PULLDOWN);
-            // attachInterruptArg(BUTTON_PIN2, onButtonPress, (void*) &(move.playerGuess[1]), RISING);
-
             pinMode(BUTTON_PIN3, INPUT_PULLDOWN);
-            // attachInterruptArg(BUTTON_PIN3, onButtonPress, (void*) &(move.playerGuess[2]), RISING);
-
             pinMode(BUTTON_PIN4, INPUT_PULLDOWN);
-            // attachInterruptArg(BUTTON_PIN4, onButtonPress, (void*) &(move.playerGuess[3]), RISING);
-
             pinMode(ENTER, INPUT_PULLDOWN);
             
             move.turn = false;
-
         };
 
         /**
-         * @brief Read and print the current hand
-         * @todo Need to switch here to show each player the card.
+         * @brief Placeholder Function that toggles peg colors on button presses
+         * @note debounced using blocking while loops, don't do this for your ISR or it will crash
+         * @todo Replace this function with a version based on ISRs
          */
         bool makeGuess() {
             // Consider making this interrupt-based and one function, since this is a lot of identical code
@@ -121,6 +110,10 @@ class CodeBreaker{
             };
         };
 
+        /**
+         * @brief Resets the Guess to default
+         * @note Extraneous but just in case someone wanted to follow the actual online game style
+         */
         void resetGuess(){
             for (uint8_t i = 0; i < 4; i++){
                 move.playerGuess[i] = 0;
@@ -137,20 +130,40 @@ class CodeBreaker{
             }
             Serial.println();
         };
+        
+         /**
+         * @brief The object holding the current state of the game, including guess, results, and turn
+         */
+        PlayerBuffer move;
 
+        /* --------------------------------------------------------------------------
+        * SECTION: DUMMY METHODS FOR LAB 3 STARTER CODE
+        * -------------------------------------------------------------------------- */
+        /**
+         * @brief Dummy function for mimicking BLE callback on Client side, used and implemented in starter code
+         * @note use only for Lab 3
+         */
         bool waitForTurn(){
             return move.turn;
         };
 
-        void notify();
+        /**
+         * @brief Dummy function for mimicking BLE callback on Client side, used and implemented in starter code
+         * @note use only for Lab 3
+         */
+        void notify() {};
 
+        /**
+         * @brief Copy your guess into buffer to be transmitted
+         * @param move the codebreakers guess
+         * @param size the size of the codebreakers guess
+         * @note Dummy function for mimicking BLE flow, use only for Lab 3
+         */
+        void loadGuess(PlayerBuffer* move, int size){};
 
-        PlayerBuffer move;
 
     private:
-        // uint8_t deck[13]; // eventually use Card struct, for now just keep track
-        // uint8_t dealersHand[10];
-        Board board;
+
 };
 
-// #endif
+#endif

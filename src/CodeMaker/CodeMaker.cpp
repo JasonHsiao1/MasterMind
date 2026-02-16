@@ -103,47 +103,8 @@ void CodeMaker::generateBiasedCode(uint8_t style){
     }
 };
 
-
-// bool throwResultsFlag();    // signal when it's time to throw results flag
-
-// void move_callBack();
-
-// uint16_t showResults();
-
-
 void CodeMaker::checkGuess(uint8_t* results, uint8_t* guess) {
     compare(results, secretCode, guess);
-    
-    // uint8_t black = 0;
-    // uint8_t white = 0;
-
-    // bool secretUsed[CODE_LENGTH] = {false};
-    // bool guessUsed[CODE_LENGTH]  = {false};
-
-    // // 1. Count black pegs (correct position & color)
-    // for (uint8_t i = 0; i < CODE_LENGTH; i++) {
-    //     if (guess[i] == secretCode[i]) {
-    //         black++;
-    //         secretUsed[i] = true;
-    //         guessUsed[i] = true;
-    //     }
-    // }
-
-    // // 2. Count white pegs (correct color, wrong position)
-    // for (uint8_t i = 0; i < CODE_LENGTH; i++) {
-    //     if (guessUsed[i]) continue;
-
-    //     for (uint8_t j = 0; j < CODE_LENGTH; j++) {
-    //         if (!secretUsed[j] && guess[i] == secretCode[j]) {
-    //             white++;
-    //             secretUsed[j] = true;
-    //             break;
-    //         }
-    //     }
-    // }
-
-    // results[0] = black;
-    // results[1] = white;
 }
 
 
@@ -179,43 +140,6 @@ void CodeMaker::compare(uint8_t* results, uint8_t* correct, uint8_t* guess) {
     results[0] = black;
     results[1] = white;
 }
-
-
-// void checkGuess(PlayerBuffer* attempt) {
-//     uint8_t black = 0;
-//     uint8_t white = 0;
-
-//     bool secretUsed[CODE_LENGTH] = {false};
-//     bool guessUsed[CODE_LENGTH]  = {false};
-
-//     // 1. Count black pegs (correct position & color)
-//     for (uint8_t i = 0; i < CODE_LENGTH; i++) {
-//         if (attempt.playersGuess[i] == secretCode[i]) {
-//             black++;
-//             secretUsed[i] = true;
-//             guessUsed[i] = true;
-//         }
-//     }
-
-//     // 2. Count white pegs (correct color, wrong position)
-//     for (uint8_t i = 0; i < CODE_LENGTH; i++) {
-//         if (guessUsed[i]) continue;
-
-//         for (uint8_t j = 0; j < CODE_LENGTH; j++) {
-//             if (!secretUsed[j] && guess[i] == secretCode[j]) {
-//                 white++;
-//                 secretUsed[j] = true;
-//                 break;
-//             }
-//         }
-//     }
-
-//     results[0] = black;
-//     results[1] = white;
-// }
-
-// uint8_t checkCorrect(uint8_t* guess);
-// uint8_t checkCorrectColor(uint8_t* guess);
 
 void CodeMaker::printCode(){
     for (uint8_t i = 0; i < 4; i++){

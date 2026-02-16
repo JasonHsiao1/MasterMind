@@ -17,6 +17,9 @@
 //============================================//
 // TODO: Set-up UUIDs and Mastermind objects  //
 //============================================//
+#define DEVICE_NAME "NimBLE-Client"     // Replace this with something unique or else everyone in lab will be annoyed with you
+#define SERVICE_UUID "4180"             // Same goes for this
+#define CHAR_UUID "0001"                // This one doesn't matter as much, as long as the Service and Device name are unique
 
 bool isConnected = false;
 bool waitingForFeedback = false; // Is it the Dealer's turn to type?
@@ -27,9 +30,9 @@ static bool                          doConnect  = false;
 static uint32_t                      scanTimeMs = 5000; /** scan time in milliseconds, 0 = scan forever */
 
 /** Now we can read/write/subscribe the characteristics of the services we are interested in */
-    NimBLERemoteService*        pSvc = nullptr;
-    NimBLERemoteCharacteristic* pChr = nullptr;
-    NimBLERemoteDescriptor*     pDsc = nullptr;
+NimBLERemoteService*        pSvc = nullptr;
+NimBLERemoteCharacteristic* pChr = nullptr;
+NimBLERemoteDescriptor*     pDsc = nullptr;
 
 /**  None of these are required as they will be handled by the library with defaults. **
  **                       Remove as you see fit for your needs                        */
@@ -47,7 +50,7 @@ class ClientCallbacks : public NimBLEClientCallbacks {
 class ScanCallbacks : public NimBLEScanCallbacks {
     void onResult(const NimBLEAdvertisedDevice* advertisedDevice) override {
         Serial.printf("Advertised Device found: %s\n", advertisedDevice->toString().c_str());
-        if (advertisedDevice->isAdvertisingService(NimBLEUUID("4180"))) {
+        if (advertisedDevice->isAdvertisingService(NimBLEUUID(SERVICE_UUID))) {
             Serial.printf("Found Our Service\n");
             /** stop scan before connecting */
             NimBLEDevice::getScan()->stop();
@@ -149,9 +152,9 @@ bool connectToServer() {
 
     
 
-    pSvc = pClient->getService("4180");
+    pSvc = pClient->getService(SERVICE_UUID);
     if (pSvc) {
-        pChr = pSvc->getCharacteristic("0001");
+        pChr = pSvc->getCharacteristic(CHAR_UUID);
     }
 
     if (pChr) {
@@ -171,7 +174,7 @@ void setup() {
     Serial.printf("Starting NimBLE Client\n");
 
     /** Initialize NimBLE and set the device name */
-    NimBLEDevice::init("NimBLE-Client");
+    NimBLEDevice::init(DEVICE_NAME);
 
     /** Optional: set the transmit power */
     NimBLEDevice::setPower(3); /** 3dbm */

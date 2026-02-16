@@ -12,7 +12,7 @@
  * @see config.h for definitions like colors.
  */
 
-// #ifdef CODEMAKER
+#ifdef CODEMAKER
 
 #include <Arduino.h>
 #include "include/config.h"
@@ -36,47 +36,94 @@ class CodeMaker{
 
         /**
          * @brief Set-up the new CodeMaker object.
-         * @note Initializes objects.
+         * @note Gets a random seed to work with.
          */
         void setup();
 
         /**
-         * @brief Reset/stop for the CodeMaker object.
-         * @return Whether the e-stop attempt was successful.
-         * @note Not implemented due to looped game
+         * @brief Generate a random code
+         * @note random seed is based on analog values
          */
-        void endGame();
-
         void generateCode();
         
-        void generateTrainingData(int samplesPerStyle);
-
-        void generateBiasedCode(uint8_t style);
-        
-        bool throwResultsFlag();    // signal when it's time to throw results flag
-
-        void move_callBack();
-
         /**
-         * @brief Read and print the current hand
-         * @todo Need to switch here to show each player the card.
+         * @brief Compare the user's guess against the results
+         * @param results the object that holds the returned results
+         * @param guess the users guess
+         * @note is a wrapper for more general compare function, but must use this because code is private
          */
-        uint16_t showResults();
-
-
         void checkGuess(uint8_t* results, uint8_t* guess);
 
-
+        /**
+         * @brief Compare the user's guess against a reference
+         * @param results the object that holds the returned results
+         * @param correct the reference against which the correct is compared against
+         * @param guess the users guess
+         * @note this function becomes important in the AI/ML portions of Lab 4
+         */
         void compare(uint8_t* results, uint8_t* correct, uint8_t* guess);
 
+        /**
+         * @brief Print the correct code for reference/debugging
+         * @note use this to print the code, because the code is secret so it's private
+         */
         void printCode();
         
+        /**
+         * @brief Helper function to print any code
+         * @param code the code that you want to print out
+         */
         void printCode(uint8_t* code);
         
+        /**
+         * @brief Return the correct code for reference/debugging
+         * @param code the object that you want to populate with the secret code
+         * @note use this as a getter to retrieve the code, because the code is secret so it's private
+         */
         void getCode(uint8_t* code);
+        
+
+        /* --------------------------------------------------------------------------
+        * SECTION: Helper functions for Lab 4 ML section
+        * -------------------------------------------------------------------------- */
+        /**
+         * @brief Helper function for generating training data for ML training
+         * @param samplesPerStyle the number of samples that you wish to generate
+         * @note use only for Lab 4, implemented in the starter code
+         */
+        void generateTrainingData(int samplesPerStyle);
+
+        /**
+         * @brief Helper function for generating biased codes for ML recognition
+         * @param style which biased approach: 1: Low Numbers, 2: Unique & Descending, 3: Pairs
+         * @note use only for Lab 4
+         */
+        void generateBiasedCode(uint8_t style);
+
+
+        /* --------------------------------------------------------------------------
+        * SECTION: DUMMY METHODS FOR LAB 3 STARTER CODE
+        * -------------------------------------------------------------------------- */
+        /**
+         * @brief Dummy function for mimicking BLE flow, used and implemented in starter code
+         * @note use only for Lab 3
+         */
+        bool throwResultsFlag();
+        
+        /**
+         * @brief Dummy function for mimicking BLE callback on Client side, used and implemented in starter code
+         * @note use only for Lab 3
+         */
+        void move_callBack();
+        
+        /**
+         * @brief Reset/stop for the CodeMaker object.
+         * @note Do not need to actually use outside of demo, extra credit requires you to make your own.
+         */
+        void endGame();
 
     private:
         uint8_t secretCode[4];
 };
 
-// #endif
+#endif

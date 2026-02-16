@@ -20,12 +20,3 @@ struct __attribute__((packed)) PlayerBuffer {
 };
 
 
-
-
-struct __attribute__((packed)) PlayerBuffer {
-    volatile uint8_t playerGuess[4];
-    uint8_t results[2]; // First is number of black pegs, second is number of white pegs
-    bool turn;  // indicator of whose turn it is (player can make Move if True)
-};
-
-
