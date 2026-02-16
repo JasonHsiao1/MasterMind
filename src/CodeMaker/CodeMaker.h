@@ -12,15 +12,15 @@
  * @see config.h for definitions like colors.
  */
 
-// #ifdef HAS_SENSORS
+// #ifdef CODEMAKER
 
 #include <Arduino.h>
 #include "include/config.h"
 #include <Wire.h>
 
-
-#define CODE_LENGTH 4
-
+#ifndef CODE_LENGTH
+    #define CODE_LENGTH 4
+#endif
 
 /**
  * @brief Implements BlackJack CodeMaker functionality
@@ -74,13 +74,9 @@ class CodeMaker{
         void printCode(uint8_t* code);
         
         void getCode(uint8_t* code);
-        
-        
 
     private:
-        uint8_t deck[13]; // eventually use Card struct, for now just keep track
         uint8_t secretCode[4];
-        uint8_t players[5]; // Players at table, change this to servers or BLE UUID later.
 };
 
 // #endif

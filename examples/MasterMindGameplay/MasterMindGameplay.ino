@@ -56,18 +56,11 @@ void loop() {
   player.printGuess();
 
 
-  // player.notify();
+  player.notify();
 
   // // After notify, move_callBack should be called
   host.move_callBack();
-
   
-}
-
-// Implement the BLE implementation of throwing the results flag
-bool CodeMaker::throwResultsFlag(){
-  player.move.turn = true;
-  return true;
 }
 
 // Read Player's move and do something
@@ -79,7 +72,7 @@ void CodeMaker::move_callBack(){
   uint8_t playersGuess[4];
 
   for (size_t i = 0; i < 4; ++i) {
-    playersGuess[i] = player.move.playerGuess[i];  // volatile → non-volatile copy
+    playersGuess[i] = player.move.playerGuess[i];  // volatile to non-volatile copy
   }
 
   // Fill buffer with results from players guess
@@ -95,4 +88,10 @@ void CodeMaker::move_callBack(){
   } else {
     host.throwResultsFlag();
   }
+}
+
+// Implement the BLE implementation of throwing the results flag (this is just notify)
+bool CodeMaker::throwResultsFlag(){
+  player.move.turn = true;
+  return true;
 }
