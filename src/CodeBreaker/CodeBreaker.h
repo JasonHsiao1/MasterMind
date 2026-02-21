@@ -12,7 +12,9 @@
  * @see pinout.h for the hardware definitions like GPIO mapping.
  */
 
-#ifdef CODEBREAKER
+// #ifdef CODEBREAKER
+#ifndef CodeBreaker_h     // Traditional Header Guard just in case but feel free to remove
+#define CodeBreaker_h
 
 #include <Arduino.h>
 #include "include/config.h"
@@ -167,3 +169,4 @@ class CodeBreaker{
 };
 
 #endif
+// #endif

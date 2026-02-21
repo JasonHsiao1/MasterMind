@@ -12,11 +12,14 @@
  * @see config.h for definitions like colors.
  */
 
-#ifdef CODEMAKER
+// #ifdef CODEMAKER     // Old build flag but take care of this in Mastermind.h
+
+#ifndef CodeMaker_h     // Traditional Header Guard just in case but feel free to remove
+#define CodeMaker_h
 
 #include <Arduino.h>
 #include "include/config.h"
-#include <Wire.h>
+// #include <Wire.h>
 
 #ifndef CODE_LENGTH
     #define CODE_LENGTH 4
@@ -33,6 +36,7 @@ class CodeMaker{
          * to ensure the hardware is ready after the system clock stabilizes.
          */
         CodeMaker();
+
 
         /**
          * @brief Set-up the new CodeMaker object.
@@ -127,3 +131,4 @@ class CodeMaker{
 };
 
 #endif
+// #endif

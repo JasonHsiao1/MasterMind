@@ -15,8 +15,11 @@
  * @see config.h for the hardware definitions like GPIO mapping
  */
 
-
+ 
+// #ifdef CODEMAKER
+#include <Arduino.h>
 #include "CodeMaker.h"
+
 
 // Constructor
 CodeMaker::CodeMaker() {
@@ -162,3 +165,6 @@ void CodeMaker::getCode(uint8_t* code){
         code[i] = secretCode[i];
     }
 }
+
+
+// #endif
