@@ -16,11 +16,28 @@
 //==============================================//
 // TODO: Define constants here                  //
 //==============================================//
-static constexpr uint8_t BUTTON_PIN1 = 4;
-static constexpr uint8_t BUTTON_PIN2 = 5;
-static constexpr uint8_t BUTTON_PIN3 = 6;
-static constexpr uint8_t BUTTON_PIN4 = 7;
-static constexpr uint8_t ENTER = 1;
+#include <Adafruit_NeoPixel.h>
+
+#define LED_PIN     8     // Data pin connected to onboard RGB LED
+#define NUM_LEDS    1     // Only one LED on board
+
+Adafruit_NeoPixel pixel(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+uint32_t pixelColors[6] = {
+  pixel.Color(255, 0, 0),    // Red
+  pixel.Color(0, 0, 255),    // Blue
+  pixel.Color(0, 255, 0),    // Green
+  pixel.Color(255, 255, 0),  // Yellow
+  pixel.Color(128, 0, 128),  // Purple
+  pixel.Color(255, 165, 0)   // Orange
+};
+
+#define BUTTON_PIN1 4
+#define BUTTON_PIN2 5
+#define BUTTON_PIN3 6
+#define BUTTON_PIN4 7
+#define ENTER 1
+
 
 #define CODEBREAKER
 #include <MasterMind.h>
